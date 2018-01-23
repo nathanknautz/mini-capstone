@@ -20,7 +20,8 @@ class Product < ApplicationRecord
       description: description,
       discounted: discounted?,
       tax: tax,
-      total: total
+      total: total,
+      in_stock: in_stock
     }
   end
 end
