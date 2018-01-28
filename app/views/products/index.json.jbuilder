@@ -9,4 +9,5 @@ json.array! @products.each do |product|
   json.tax product.tax 
   json.total product.total
   json.in_stock product.in_stock
+  json.supplier_name product.supplier.name
 end

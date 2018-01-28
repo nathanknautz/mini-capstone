@@ -8,4 +8,5 @@ json.discounted @product.discounted?
 json.tax @product.tax 
 json.total @product.total
 json.in_stock @product.in_stock
+json.supplier_name @product.supplier.name
 
