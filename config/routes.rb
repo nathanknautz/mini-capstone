@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
  get "/suppliers/:id" => 'suppliers#show'
  get "/suppliers" => 'suppliers#index'
+
+ post "/users" => 'users#create'
 end
