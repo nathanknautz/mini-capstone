@@ -4,4 +4,9 @@ class SuppliersController < ApplicationController
     render 'show.json.jbuilder'
   end
 
+  def index
+    @suppliers = Supplier.all 
+    render 'index.json.jbuilder'
+  end
+
 end

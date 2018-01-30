@@ -1,8 +1,12 @@
-Product.create!([
-  {name: "Cairn Terrier", price: "500.0", image_url: "http://www.petguide.com/wp-content/uploads/2013/02/cairn-terrier-21.jpg", description: "The Cairn Terrier is one of the oldest terrier breeds, originating in the Scottish Highlands and recognized as one of Scotland's earliest working dogs.", in_stock: false},
-  {name: "Golden Retriever", price: "1500.0", image_url: "http://cdn1-www.dogtime.com/assets/uploads/gallery/golden-retriever-dogs-and-puppies/golden-retriever-dogs-puppies-9.jpg", description: "The Golden Retriever is a large-sized breed of dog bred as gun dogs to retrieve shot waterfowl.", in_stock: false},
-  {name: "Dachshund", price: "1000.0", image_url: "http://celebritydogwatcher.com/wp-content/uploads/2017/09/dachshund_names_german_food.jpg", description: "it has short legs and a long body. resembles a hot dog...", in_stock: false},
-  {name: "Pug", price: "800.0", image_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/pug-dog-breed-pictures/2-face.jpg", description: "A lot of dog, in a small place", in_stock: false},
-  {name: "Golden Doodle", price: "1999.0", image_url: "www.google.com/golden_doodle", description: "a cross between a poodle and the much better golden retriever", in_stock: false},
-  {name: "German Shepherd", price: "1000.0", image_url: "\"\"", description: "The German Shepherd is a breed of medium to large-sized working dog that originated in Germany.", in_stock: false}
-])
+Image.create!([
+  {url: "https://vignette.wikia.nocookie.net/adventuretimewithfinnandjake/images/3/3b/Jakesalad.png/revision/latest?cb=20160503014517", product_id: "9"},
+  {url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Female_German_Shepherd.jpg/330px-Female_German_Shepherd.jpg", product_id: "6"},
+  {url: "https://www.pets4homes.co.uk/images/articles/4229/large/pugs-and-eye-disorders-recognising-theres-a-problem-595b4a467850f.jpg", product_id: "4"},
+  {url: "http://animalso.com/wp-content/uploads/2017/06/Mini-Goldendoodle_1.jpg", product_id: "5"},
+  {url: "http://cdn.akc.org/content/hero/westiehero.jpg", product_id: "7"},
+  {url: "Chttps://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/MiniDachshund1_wb.jpg/220px-MiniDachshund1_wb.jpg", product_id: "3"},
+  {url: "http://cdn3-www.dogtime.com/assets/uploads/gallery/golden-retriever-dogs-and-puppies/golden-retriever-dogs-puppies-5.jpg", product_id: "2"},
+  {url: "http://www.petguide.com/wp-content/uploads/2013/02/cairn-terrier-21.jpg", product_id: "1"},
+  {url: "http://www.godsdogs1.com/uploads/3/4/5/8/34586246/6245566_orig.jpg", product_id: "8"}
+]
+)

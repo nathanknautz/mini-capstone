@@ -6,4 +6,5 @@ Rails.application.routes.draw do
  delete "/products/:id" => 'products#destroy'
 
  get "/suppliers/:id" => 'suppliers#show'
+ get "/suppliers" => 'suppliers#index'
 end
