@@ -8,5 +8,7 @@ class UsersController < ApplicationController
       render json: {message: "user created successfully"}, status: :created
     else
       render json: {errors: user.errors.full_messsages}, status: :bad_request
+    end
   end
+
 end
