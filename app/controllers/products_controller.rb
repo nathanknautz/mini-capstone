@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
   def index
     @products = Product.all
     search_term = params[:search]
@@ -17,7 +17,6 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(name: params[:name],
                           price: params[:price],
-                          image_url: params[:image_url],
                           description: params[:description],
                           supplier_id: params[:supplier_id])
     if @product.save 
@@ -46,12 +45,14 @@ class ProductsController < ApplicationController
     else
       render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
     end
-
   end
 
   def destroy
     product = Product.find(params[:id])
-    product.destroy
-    render json: {message: "Successfully destroyed Product ##{params[:id]}"}
+    if product.destroy
+      render json: {message: "Successfully destroyed Product ##{params[:id]}"}
+    else
+      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+    end
   end
 end

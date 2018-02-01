@@ -1,6 +1,1 @@
-json.id @order.id
-json.product @order.product
-json.quantity @order.quantity
-json.subtotal @order.subtotal
-json.tax @order.tax
-json.total @order.tax
+json.partial! @order, partial: 'order', as: :order
