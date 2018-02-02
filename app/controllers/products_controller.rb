@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_admin, only: [:create, :update, :destroy]
+  
   def index
     @products = Product.all
     search_term = params[:search]
@@ -10,6 +11,10 @@ class ProductsController < ApplicationController
     end
     if sort_by
       @products = @products.order("#{sort_by}")
+    end
+    category_name = params[:category]
+    if category_name
+      @products = Category.find_by(name: category_name).products
     end
     render 'index.json.jbuilder'
   end
