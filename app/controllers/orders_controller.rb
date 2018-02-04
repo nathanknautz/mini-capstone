@@ -6,12 +6,27 @@ class OrdersController < ApplicationController
   end
 
   def create
+    carted_products = current_user.carted_products.where(status: 'carted')
+    subtotal = 0
+   
+    carted_products.each do |carted_product|
+      subtotal += carted_product.quantity * carted_product.product.price
+    end
+
+    tax = subtotal * 0.09
+    total = subtotal + tax
+
     @order = Order.new(user_id: current_user.id,
-                      product_id: params[:product_id],
-                      quantity: params[:quantity]
+                        subtotal: subtotal,
+                        tax: tax,
+                        total: total
                       )
-    @order.calculate_totals
     @order.save
+    carted_products.each do |carted_product|
+      carted_product.status = 'Purchased'
+      carted_product.order_id = @order.id
+      carted_product.save
+    end
     render 'show.json.jbuilder'
     end
   end
