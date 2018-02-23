@@ -13,6 +13,6 @@ json.formatted do
 
                end
 json.in_stock product.in_stock
-json.supplier product.supplier
+json.supplier_id product.supplier_id
 
 

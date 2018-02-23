@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
     if @product.save 
       render 'show.json.jbuilder'
     else
-      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
     end
 
   end
@@ -38,17 +38,17 @@ class ProductsController < ApplicationController
   end
 
   def update
-     product = Product.find(params[:id])
-     product.name = params[:name] || product.name 
-     product.price = params[:price] || product.price
-     product.description = params[:description] || product.description
-     product.in_stock = params[:in_stock] || product.in_stock
-     product.supplier_id = params[:supplier_id] || product.supplier_id
+     @product = Product.find(params[:id])
+     @product.name = params[:name] || @product.name 
+     @product.price = params[:price] || @product.price
+     @product.description = params[:description] || @product.description
+     @product.in_stock = params[:in_stock] || @product.in_stock
+     @product.supplier_id = params[:supplier_id] || @product.supplier_id
     
-    if product.save
+    if @product.save
       render 'show.json.jbuilder'
     else
-      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
     end
   end
 

@@ -6,51 +6,52 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="index_css.css">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src = "index.js" defer></script>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" href="#">Cookbook App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
-    </div>
-  </nav>
 <body>
-  <div class="container">
-    <div>
-      <h1>All Products</h1>
-      <div class="row">
-        <!-- repeating stuff -->
-    </div>
+
+  <div id="vue-app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="#">Product Store</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Users
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/#/signup">Signup</a>
+              <a class="dropdown-item" href="/#/login">Login</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/#/logout">Logout</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <router-view></router-view>
+
   </div>
 
 
@@ -60,15 +61,150 @@
 </body>
 </html>
 
-<template id = "product-card">
-  <div class="col-md-4">
-    <div class="card-mb-5">
-      <div class="body">
-        <h2 class="name">Jake</h2>
-        <img src="https://vignette.wikia.nocookie.net/adventuretimewithfinnandjake/images/3/3b/Jakesalad.png/revision/latest?cb=20160503014517" alt="" height="200" width="180" class="prod-img">
-        <p>Description: <span class="description"></span></p>
-        <p>Price: <span class="price"></span></p>
+<template id="products-index-page">
+  <div class="vue-component">
+    <div class="container">
+      <div class="row">
+        <div v-for="product in products" class="col-md-4">
+          <div class="card-mb-5">
+            <img class="card-img-top" v-bind:src="product.images[0].url" alt="">
+            <div class="card-body">
+              <h2 class="card-title"> {{product.name}} </h2>
+              <p class="card-text"> {{product.description}} </p>
+              <a class="btn btn-primary" v-bind:href="'/#/products/' + product.id" >More Info</a>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </template>
+
+<template id="products-new-page">
+
+    <div class="container">
+      <h1>New Product</h1>
+      <ul>
+        <li class="text-danger" v-if="errors.length >0">{{ errors }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="price">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="description">
+      </div>
+        <div class="form-group">
+        <label>Supplier ID:</label>
+        <input type="text" class="form-control" v-model="supplierId">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+
+</template>
+
+<template id="products-show-page">
+  <div class="vue-component">
+    <div class="container">
+      <h1> {{product.name}} </h1>
+      <p> {{product.description}} </p>
+      <p> Price: {{product.formatted.total}} </p>
+      <img v-bind:src="product.images[0].url" alt="">
+      <a class="btn btn-warning" v-bind:href="'/#/products/' + product.id + '/edit'">Edit Information</a>
+    </div>
+  </div>
+
+</template>
+
+<template id="products-edit-page">
+
+    <div class="container">
+      <h1>Edit Product</h1>
+      <ul>
+        <li v-if="errors.length > 1" class="text-danger"> {{ errors }}</li>
+        <li v-else class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Price:</label>
+        <input type="text" class="form-control" v-model="price">
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control" v-model="description">
+      </div>
+        <div class="form-group">
+        <label>Supplier ID:</label>
+        <input type="text" class="form-control" v-model="supplierId">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+  </div>
+
+</template>
+
+<template id="signup-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Signup</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Name:</label> 
+        <input type="text" class="form-control" v-model="name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <div class="form-group">
+        <label>Password confirmation:</label>
+        <input type="password" class="form-control" v-model="passwordConfirmation">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+<template id="login-page">
+  <div class="vue-component">
+
+    <div class="container">
+      <h1>Login</h1>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" class="form-control" v-model="email">
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" v-model="password">
+      </div>
+      <button class="btn btn-primary" v-on:click="submit()">Submit</button>
+    </div>
+
+  </div>
+</template>
+
+
+
+
 
